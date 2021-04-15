@@ -7,7 +7,7 @@ export default class Tank extends Phaser.GameObjects.Container {
         let hull = scene.add.sprite(0,0,'hull')
         let weapon = scene.add.sprite(0,0,'weapon')
         this.add([hull,weapon])
-        this.setScale(0.3)
+        this.setScale(0.6)
     
     }
 }
