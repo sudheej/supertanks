@@ -1,33 +1,61 @@
 {
-    "name": "phaser3-typescript-project-template",
-    "version": "1.0.2",
-    "description": "A Phaser 3 Project Template using Rollup and TypeScript",
-    "main": "src/game.ts",
-    "scripts": {
-        "dev": "rollup --config rollup.config.dev.js",
-        "build": "rollup --config rollup.config.dist.js",
-        "watch": "rollup --watch --config rollup.config.dev.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/photonstorm/phaser3-typescript-project-template.git"
-    },
-    "author": "Richard Davey <rich@photonstorm.com> (http://www.photonstorm.com)",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/photonstorm/phaser3-typescript-project-template/issues"
-    },
-    "homepage": "https://github.com/photonstorm/phaser3-typescript-project-template#readme",
-    "dependencies": {},
-    "devDependencies": {
-        "@rollup/plugin-replace": "^2.3.4",
-        "phaser": "^3.50.0",
-        "rollup": "^2.35.1",
-        "rollup-plugin-commonjs": "^10.1.0",
-        "rollup-plugin-node-resolve": "^5.2.0",
-        "rollup-plugin-serve": "^1.1.0",
-        "rollup-plugin-typescript2": "^0.29.0",
-        "rollup-plugin-uglify": "^6.0.4",
-        "typescript": "^4.1.3"
-    }
+  "name": "phaser-project-template",
+  "version": "3.53.1",
+  "description": "Phaser 3 starter template with TypeScript and webpack.",
+  "homepage": "https://github.com/yandeu/phaser-project-template#readme",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack serve --config webpack/webpack.dev.js",
+    "build": "rimraf dist && webpack --config webpack/webpack.prod.js",
+    "bundle": "npm run build",
+    "serve": "serve dist",
+    "format": "prettier --check src/scripts/**",
+    "format:write": "prettier --write src/scripts/**"
+  },
+  "keywords": [
+    "Phaser",
+    "Phaser 3",
+    "Phaser3",
+    "html5 game",
+    "TypeScript",
+    "webpack",
+    "starter"
+  ],
+  "author": {
+    "name": "Yannick Deubel",
+    "url": "https://github.com/yandeu"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yandeu/phaser-project-template.git"
+  },
+  "template": {
+    "name": "phaser-project-template",
+    "url": "https://github.com/yandeu/phaser-project-template",
+    "author": "Yannick Deubel (https://github.com/yandeu)"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@yandeu/prettier-config": "^0.0.1",
+    "copy-webpack-plugin": "^8.0.0",
+    "html-webpack-plugin": "^5.2.0",
+    "javascript-obfuscator": "^2.9.5",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "serve": "^11.3.2",
+    "ts-loader": "^8.0.12",
+    "typescript": "^4.1.3",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.0",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.7.3",
+    "webpack-obfuscator": "^3.2.0",
+    "workbox-webpack-plugin": "^6.0.2"
+  },
+  "dependencies": {
+    "phaser": "^3.53.1"
+  }
 }
