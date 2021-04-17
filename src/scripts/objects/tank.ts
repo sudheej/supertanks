@@ -1,6 +1,6 @@
 export default class Tank extends Phaser.GameObjects.Container {
 
-    
+    TrackAnimationisPlaying:Boolean
     constructor(scene:Phaser.Scene,x:number,y:number) {
         super(scene,x,y);
 
@@ -22,6 +22,17 @@ export default class Tank extends Phaser.GameObjects.Container {
             frameRate: 5,
             repeat: -1
         })
+        lefttrack.anims.create({
+            key: 'Track_idle',
+            frames: lefttrack.anims.generateFrameNames('effects', {
+            start: 1,
+            end:1,
+            prefix: 'Track_2_',
+            suffix: '.png'
+            }),
+            frameRate: 5,
+            repeat: 1
+        })
         righttrack.anims.create({
             key: 'Track_2',
             frames: righttrack.anims.generateFrameNames('effects', {
@@ -33,36 +44,71 @@ export default class Tank extends Phaser.GameObjects.Container {
             frameRate: 5,
             repeat: -1
         })
-        lefttrack.play('Track_2')
-        righttrack.play('Track_2')
+        righttrack.anims.create({
+            key: 'Track_idle',
+            frames: righttrack.anims.generateFrameNames('effects', {
+            start: 1,
+            end:1,
+            prefix: 'Track_2_',
+            suffix: '.png'
+            }),
+            frameRate: 5,
+            repeat: 1
+        })
+         lefttrack.play('Track_idle')
+        righttrack.play('Track_idle')
 
 
         this.add([hull,weapon,lefttrack,righttrack])
-        this.setScale(0.6)
+        scene.physics.world.enableBody(this)
+        this.setScale(0.5)
     
+    }
+    track_animation_state(isActive:Boolean) {
+        switch(true) {
+            case isActive:
+                if (!this.TrackAnimationisPlaying) {
+                    this.scene.anims.play('Track_2',this.getAt(2))
+                    this.scene.anims.play('Track_2',this.getAt(3)) 
+                      this.TrackAnimationisPlaying = true
+                   }
+            break;       
+            default:
+                if (this.TrackAnimationisPlaying) {
+                    this.scene.anims.play('Track_idle',this.getAt(2)) 
+                    this.scene.anims.play('Track_idle',this.getAt(3))
+                      this.TrackAnimationisPlaying = false
+                   }
+            break;  
+        }
     }
 
     keyboard_actions(cursors:Phaser.Types.Input.Keyboard.CursorKeys) {
 
         switch (true) {
             case cursors.left.isDown:
-                this.x -= 1
+               this.track_animation_state(true)
+                this.x -=1
                 this.angle = -90
                 break;
             case cursors.right.isDown:
+                this.track_animation_state(true)
                 this.x += 1
                 this.angle = +90
-                break;
+                break;  
             case cursors.up.isDown:
+                this.track_animation_state(true)
                 this.y -= 1
                 this.angle = 360
                 break;
             case cursors.down.isDown:
+                this.track_animation_state(true)
                 this.y += 1
                 this.angle = 180
                 break;
 
             default:
+                this.track_animation_state(false)
                 break;
         }
 
