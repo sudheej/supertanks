@@ -1,16 +1,20 @@
 export default class Tank extends Phaser.GameObjects.Container {
 
     TrackAnimationisPlaying:Boolean
+    weaponsTween
     constructor(scene:Phaser.Scene,x:number,y:number) {
         super(scene,x,y);
 
         let hull = scene.add.sprite(0,0,'hull')
         let weapon = scene.add.sprite(0,0,'weapon')
         let lefttrack = scene.physics.add.sprite(-100,0,'effects')
-        lefttrack.setScale(0.95)
-       
         let righttrack = scene.physics.add.sprite(100,0,'effects')
-        righttrack.setScale(0.95)
+
+        lefttrack.setScale(0.90)
+        righttrack.setScale(0.90)
+       
+        
+        
         lefttrack.anims.create({
             key: 'Track_2',
             frames: lefttrack.anims.generateFrameNames('effects', {
@@ -83,7 +87,30 @@ export default class Tank extends Phaser.GameObjects.Container {
         }
     }
 
+    resetTween(weapon) {
+        if (this.weaponsTween) { this.weaponsTween.pause() }
+        weapon.y = 15
+              
+    }
+
     keyboard_actions(cursors:Phaser.Types.Input.Keyboard.CursorKeys) {
+
+        if(cursors.space.isDown){
+            
+           this.resetTween(this.getAt(1))
+            this.weaponsTween = this.scene.tweens.add({
+                targets: this.getAt(1),
+                y: 0,
+                duration: 50,
+                ease: 'Easing.Elastic.In',
+                repeat: 1,
+                yoyo: true
+            });
+   
+        }
+        else {
+            
+        }
 
         switch (true) {
             case cursors.left.isDown:
@@ -106,7 +133,6 @@ export default class Tank extends Phaser.GameObjects.Container {
                 this.y += 1
                 this.angle = 180
                 break;
-
             default:
                 this.track_animation_state(false)
                 break;
