@@ -8,6 +8,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('weapon', 'assets/Gun_02.png');
     this.load.atlas('effects','assets/effects.png','assets/effects.json');
     this.load.audio('tankdriving','assets/sounds/tankdriving.wav')
+    this.load.audio('firing','assets/sounds/fire.mp3')
   }
 
   create() {
