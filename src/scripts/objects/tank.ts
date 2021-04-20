@@ -1,9 +1,14 @@
+import Bullet from './bullet'
 export default class Tank extends Phaser.GameObjects.Container {
 
     TrackAnimationisPlaying:Boolean
     weaponsTween
     exhaust
+    shotsFlame
     firing
+    driving
+    TankBullet
+
     constructor(scene:Phaser.Scene,x:number,y:number) {
         super(scene,x,y);
 
@@ -12,7 +17,12 @@ export default class Tank extends Phaser.GameObjects.Container {
         let lefttrack = scene.physics.add.sprite(-100,0,'effects')
         let righttrack = scene.physics.add.sprite(100,0,'effects')
         this.exhaust = scene.physics.add.sprite(0,113,'effects')
+  
         this.firing = scene.sound.add('firing')
+        this.driving = scene.sound.add('tankdriving',{volume:0.2,loop:true})
+        this.TankBullet =  scene.physics.add.group({classType: Bullet, maxSize: 3, runChildUpdate: true })
+        
+    
 
         lefttrack.setScale(0.90)
         righttrack.setScale(0.90)
@@ -94,13 +104,14 @@ export default class Tank extends Phaser.GameObjects.Container {
         this.add([hull,weapon,lefttrack,righttrack,this.exhaust])
        
         scene.physics.world.enableBody(this)
-        this.setScale(0.4)
+        this.setScale(0.3)
     
     }
     track_animation_state(isActive:Boolean) {
         switch(true) {
             case isActive:
                 if (!this.TrackAnimationisPlaying) {
+                    this.driving.play()
                     this.add([this.exhaust])
                     this.scene.anims.play('Track_2',this.getAt(2))
                     this.scene.anims.play('Track_2',this.getAt(3)) 
@@ -113,6 +124,7 @@ export default class Tank extends Phaser.GameObjects.Container {
             break;       
             default:
                 if (this.TrackAnimationisPlaying) {
+                    this.driving.stop()
                     this.exhaust.visible = false
         
                     this.scene.anims.play('Track_idle',this.getAt(2)) 
@@ -128,12 +140,16 @@ export default class Tank extends Phaser.GameObjects.Container {
         weapon.y = 15
               
     }
+    
 
     keyboard_actions(cursors:Phaser.Types.Input.Keyboard.CursorKeys) {
 
         if(cursors.space.isDown){
             this.firing.play()
-            
+            let bullet = this.TankBullet.get();
+            if(bullet) {
+             bullet.fire(this.x,this.y,this.angle)
+            }
            this.resetTween(this.getAt(1))
             this.weaponsTween = this.scene.tweens.add({
                 targets: this.getAt(1),

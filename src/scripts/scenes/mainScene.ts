@@ -14,7 +14,7 @@ export default class MainScene extends Phaser.Scene {
 
   create() {
     this.tank = new Tank(this,400,300)
-    this.bgm = this.sound.add('bgm',{ loop: true })
+    this.bgm = this.sound.add('bgm',{ loop: true,volume: 0.1 })
     this.cursors = this.input.keyboard.createCursorKeys()
     this.tankdriving = this.sound.add('tankdriving')
     this.add.existing(this.tank)
