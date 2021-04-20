@@ -85,11 +85,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`sudheej`, `supertanks`, `sudheej`, `email`, `Super Tanks`, `A tank battle game developed in phaser.js that provide  an api to control gameobjects and  record feedback.  The game therefore allows AI bots to learn and control objects.`
+A tank battle game developed in phaser.js that provide  an api to control gameobjects and  record feedback.  The game therefore allows AI bots to learn and control objects.
 
 
 ### Built With
