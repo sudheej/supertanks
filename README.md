@@ -27,7 +27,7 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-
+[![Build](https://github.com/sudheej/supertanks/actions/workflows/build.js.yml/badge.svg?style=for-the-badge)](https://github.com/sudheej/supertanks/actions/workflows/build.js.yml)
 
 <!-- PROJECT LOGO -->
 <br />
