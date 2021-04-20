@@ -1,40 +1,41 @@
 import Bullet from './bullet'
 export default class Tank extends Phaser.GameObjects.Container {
 
-    TrackAnimationisPlaying:Boolean
+    TrackAnimationisPlaying: Boolean
     weaponsTween
     exhaust
     shotsFlame
     firing
     driving
     TankBullet
+    _TANKSPEED = 2
 
-    constructor(scene:Phaser.Scene,x:number,y:number) {
-        super(scene,x,y);
+    constructor(scene: Phaser.Scene, x: number, y: number) {
+        super(scene, x, y);
 
-        let hull = scene.add.sprite(0,0,'hull')
-        let weapon = scene.add.sprite(0,0,'weapon')
-        let lefttrack = scene.physics.add.sprite(-100,0,'effects')
-        let righttrack = scene.physics.add.sprite(100,0,'effects')
-        this.exhaust = scene.physics.add.sprite(0,113,'effects')
-  
+        let hull = scene.add.sprite(0, 0, 'hull')
+        let weapon = scene.add.sprite(0, 0, 'weapon')
+        let lefttrack = scene.physics.add.sprite(-100, 0, 'effects')
+        let righttrack = scene.physics.add.sprite(100, 0, 'effects')
+        this.exhaust = scene.physics.add.sprite(0, 113, 'effects')
+
         this.firing = scene.sound.add('firing')
-        this.driving = scene.sound.add('tankdriving',{volume:0.2,loop:true})
-        this.TankBullet =  scene.physics.add.group({classType: Bullet, maxSize: 3, runChildUpdate: true })
-        
-    
+        this.driving = scene.sound.add('tankdriving', { volume: 0.2, loop: true })
+        this.TankBullet = scene.physics.add.group({ classType: Bullet, maxSize: 3, runChildUpdate: true })
+
+
 
         lefttrack.setScale(0.90)
         righttrack.setScale(0.90)
         this.exhaust.setScale(0.7)
-       
+
         this.exhaust.anims.create({
             key: 'Sprite_Effects_Exhaust',
             frames: this.exhaust.anims.generateFrameNames('effects', {
-            start: 1,       
-            end:9,
-            prefix: 'Sprite_Effects_Exhaust_02_00',
-            suffix: '.png'
+                start: 1,
+                end: 9,
+                prefix: 'Sprite_Effects_Exhaust_02_00',
+                suffix: '.png'
             }),
             frameRate: 9,
             repeat: -1
@@ -43,23 +44,23 @@ export default class Tank extends Phaser.GameObjects.Container {
         this.exhaust.anims.create({
             key: 'Sprite_Effects_Idle',
             frames: lefttrack.anims.generateFrameNames('effects', {
-            start: 1,       
-            end:1,
-            prefix: 'Sprite_Effects_Exhaust_02_00',
-            suffix: '.png'
+                start: 1,
+                end: 1,
+                prefix: 'Sprite_Effects_Exhaust_02_00',
+                suffix: '.png'
             }),
             frameRate: 9,
             repeat: 1
         })
-        
-        
+
+
         lefttrack.anims.create({
             key: 'Track_2',
             frames: lefttrack.anims.generateFrameNames('effects', {
-            start: 1,       
-            end:2,
-            prefix: 'Track_2_',
-            suffix: '.png'
+                start: 1,
+                end: 2,
+                prefix: 'Track_2_',
+                suffix: '.png'
             }),
             frameRate: 9,
             repeat: -1
@@ -67,10 +68,10 @@ export default class Tank extends Phaser.GameObjects.Container {
         lefttrack.anims.create({
             key: 'Track_idle',
             frames: lefttrack.anims.generateFrameNames('effects', {
-            start: 1,
-            end:1,
-            prefix: 'Track_2_',
-            suffix: '.png'
+                start: 1,
+                end: 1,
+                prefix: 'Track_2_',
+                suffix: '.png'
             }),
             frameRate: 9,
             repeat: 1
@@ -78,10 +79,10 @@ export default class Tank extends Phaser.GameObjects.Container {
         righttrack.anims.create({
             key: 'Track_2',
             frames: righttrack.anims.generateFrameNames('effects', {
-            start: 1,
-            end:2,
-            prefix: 'Track_2_',
-            suffix: '.png'
+                start: 1,
+                end: 2,
+                prefix: 'Track_2_',
+                suffix: '.png'
             }),
             frameRate: 9,
             repeat: -1
@@ -89,68 +90,68 @@ export default class Tank extends Phaser.GameObjects.Container {
         righttrack.anims.create({
             key: 'Track_idle',
             frames: righttrack.anims.generateFrameNames('effects', {
-            start: 1,
-            end:1,
-            prefix: 'Track_2_',
-            suffix: '.png'
+                start: 1,
+                end: 1,
+                prefix: 'Track_2_',
+                suffix: '.png'
             }),
             frameRate: 9,
             repeat: 1
         })
-         lefttrack.play('Track_idle')
-         righttrack.play('Track_idle')
-         this.exhaust.play('Sprite_Effects_Exhaust')
-         this.exhaust.visible = false
-        this.add([hull,weapon,lefttrack,righttrack,this.exhaust])
-       
+        lefttrack.play('Track_idle')
+        righttrack.play('Track_idle')
+        this.exhaust.play('Sprite_Effects_Exhaust')
+        this.exhaust.visible = false
+        this.add([hull, weapon, lefttrack, righttrack, this.exhaust])
+
         scene.physics.world.enableBody(this)
         this.setScale(0.3)
-    
+
     }
-    track_animation_state(isActive:Boolean) {
-        switch(true) {
+    track_animation_state(isActive: Boolean) {
+        switch (true) {
             case isActive:
                 if (!this.TrackAnimationisPlaying) {
                     this.driving.play()
                     this.add([this.exhaust])
-                    this.scene.anims.play('Track_2',this.getAt(2))
-                    this.scene.anims.play('Track_2',this.getAt(3)) 
+                    this.scene.anims.play('Track_2', this.getAt(2))
+                    this.scene.anims.play('Track_2', this.getAt(3))
                     this.exhaust.visible = true
-             
+
                     //this.exhaust.play('Sprite_Effects_Exhaust')
-                 
+
                     this.TrackAnimationisPlaying = true
-                   }
-            break;       
+                }
+                break;
             default:
                 if (this.TrackAnimationisPlaying) {
                     this.driving.stop()
                     this.exhaust.visible = false
-        
-                    this.scene.anims.play('Track_idle',this.getAt(2)) 
-                    this.scene.anims.play('Track_idle',this.getAt(3))
-                      this.TrackAnimationisPlaying = false
-                   }
-            break;  
+
+                    this.scene.anims.play('Track_idle', this.getAt(2))
+                    this.scene.anims.play('Track_idle', this.getAt(3))
+                    this.TrackAnimationisPlaying = false
+                }
+                break;
         }
     }
 
     resetTween(weapon) {
         if (this.weaponsTween) { this.weaponsTween.pause() }
         weapon.y = 15
-              
+
     }
-    
 
-    keyboard_actions(cursors:Phaser.Types.Input.Keyboard.CursorKeys) {
 
-        if(cursors.space.isDown){
+    keyboard_actions(cursors: Phaser.Types.Input.Keyboard.CursorKeys) {
+
+        if (cursors.space.isDown) {
             this.firing.play()
             let bullet = this.TankBullet.get();
-            if(bullet) {
-             bullet.fire(this.x,this.y,this.angle)
+            if (bullet) {
+                bullet.fire(this.x, this.y, this.angle)
             }
-           this.resetTween(this.getAt(1))
+            this.resetTween(this.getAt(1))
             this.weaponsTween = this.scene.tweens.add({
                 targets: this.getAt(1),
                 y: 0,
@@ -159,33 +160,33 @@ export default class Tank extends Phaser.GameObjects.Container {
                 repeat: 1,
                 yoyo: true
             });
-   
+
         }
         else {
-            
+
         }
 
         switch (true) {
             case cursors.left.isDown:
-            
-               this.track_animation_state(true)
-                this.x -= 1
-               
+
+                this.track_animation_state(true)
+                this.x -= this._TANKSPEED
+
                 this.angle = -90
                 break;
             case cursors.right.isDown:
                 this.track_animation_state(true)
-                this.x += 1
+                this.x += this._TANKSPEED
                 this.angle = +90
-                break;  
+                break;
             case cursors.up.isDown:
                 this.track_animation_state(true)
-                this.y -= 1
+                this.y -= this._TANKSPEED
                 this.angle = 360
                 break;
             case cursors.down.isDown:
                 this.track_animation_state(true)
-                this.y += 1
+                this.y += this._TANKSPEED
                 this.angle = 180
                 break;
             default:
@@ -194,7 +195,7 @@ export default class Tank extends Phaser.GameObjects.Container {
         }
 
 
-  
+
 
     }
 }
