@@ -167,15 +167,15 @@ Project Link: [https://github.com/sudheej/supertanks](https://github.com/sudheej
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/sudheej/repo.svg?style=for-the-badge
-[contributors-url]: https://github.com/sudheej/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/sudheej/repo.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/sudheej/supertanks.svg?style=for-the-badge
+[contributors-url]: https://github.com/sudheej/supertanks/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/sudheej/supertanks.svg?style=for-the-badge
 [forks-url]: https://github.com/sudheej/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/sudheej/repo.svg?style=for-the-badge
-[stars-url]: https://github.com/sudheej/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/sudheej/repo.svg?style=for-the-badge
-[issues-url]: https://github.com/sudheej/repo/issues
-[license-shield]: https://img.shields.io/github/license/sudheej/repo.svg?style=for-the-badge
-[license-url]: https://github.com/sudheej/repo/blob/master/LICENSE.txt
+[stars-shield]: https://img.shields.io/github/stars/sudheej/supertanks.svg?style=for-the-badge
+[stars-url]: https://github.com/sudheej/supertanks/stargazers
+[issues-shield]: https://img.shields.io/github/issues/sudheej/supertanks.svg?style=for-the-badge
+[issues-url]: https://github.com/sudheej/supertanks/issues
+[license-shield]: https://img.shields.io/github/license/sudheej/supertanks.svg?style=for-the-badge
+[license-url]: https://github.com/sudheej/supertanks/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/sudheej-sudhakaran-122b4521/
