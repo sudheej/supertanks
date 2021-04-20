@@ -26,8 +26,8 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
+[![Build][build-shield]][build-url]
 
-[![Build](https://github.com/sudheej/supertanks/actions/workflows/build.js.yml/badge.svg?style=for-the-badge)](https://github.com/sudheej/supertanks/actions/workflows/build.js.yml)
 
 <!-- PROJECT LOGO -->
 <br />
@@ -179,3 +179,5 @@ Project Link: [https://github.com/sudheej/supertanks](https://github.com/sudheej
 [license-url]: https://github.com/sudheej/supertanks/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/sudheej-sudhakaran-122b4521/
+[build-shield]: https://github.com/sudheej/supertanks/actions/workflows/build.js.yml/badge.svg?style=for-the-badge
+[build-url]: https://github.com/sudheej/supertanks/actions/workflows/build.js.yml
