@@ -26,7 +26,7 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
-[![Build][build-shield]][build-url]
+
 
 
 <!-- PROJECT LOGO -->
@@ -39,10 +39,10 @@
   <h3 align="center">Super Tanks</h3>
 
   <p align="center">
-    A tank battle game developed in phaser.js that provide  an api to control gameobjects and  record feedback.  The game therefore allows AI bots to learn and control objects.
+    A battle tank game that exposes API's to control interaction thus enabling a AI bots to train, learn and conqure the supertanks battle champion award.
     <br />
     <a href="https://github.com/sudheej/supertanks"><strong>Explore the docs »</strong></a>
-    <br />
+conquer    <br />
     <br />
     <a href="https://github.com/sudheej/supertanks">View Demo</a>
     ·
@@ -53,7 +53,7 @@
 </p>
 
 
-
+[![Build][build-shield]][build-url]
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
@@ -157,7 +157,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@sudheej](https://twitter.com/sudheej) - email
+Sudheej Sudhakaran - [@sudheej](https://twitter.com/sudheej)
 
 Project Link: [https://github.com/sudheej/supertanks](https://github.com/sudheej/supertanks)
 
