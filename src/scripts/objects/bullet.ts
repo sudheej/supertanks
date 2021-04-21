@@ -1,6 +1,4 @@
-import { Game } from "phaser";
 
-  
     enum orientation {
         Up = 0,
         Down = -180,

@@ -121,7 +121,9 @@ export default class Tank extends Phaser.GameObjects.Container {
         this.shotsFlame.visible = false
         this.add([hull, weapon, lefttrack, righttrack, this.exhaust,this.shotsFlame])
 
-        scene.physics.world.enableBody(this)
+        scene.physics.world.enable(this)
+      
+        
         this.setScale(0.3)
 
     }
@@ -166,13 +168,24 @@ export default class Tank extends Phaser.GameObjects.Container {
             this.firing.play()
             let bullet = this.TankBullet.get();
             if (bullet) {
-                bullet.fire(this.x, this.y, this.angle)
                 this.shotsFlame.visible = true
                 this.scene.anims.play('Sprite_Fire_Shots_Flame', this.getAt(5))
+                bullet.fire(this.x, this.y, this.angle)
+              
+                
             }
-            else{
-                this.shotsFlame.visible = false
+            else {
+                
             }
+
+           
+         
+               
+
+           
+      
+             
+        
             this.resetTween(this.getAt(1))
             this.weaponsTween = this.scene.tweens.add({
                 targets: this.getAt(1),
@@ -185,7 +198,7 @@ export default class Tank extends Phaser.GameObjects.Container {
 
         }
         else {
-
+            this.shotsFlame.visible = false
         }
 
         switch (true) {
