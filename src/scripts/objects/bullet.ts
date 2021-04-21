@@ -1,3 +1,4 @@
+import { Game } from "phaser";
 
   
     enum orientation {
@@ -82,7 +83,7 @@ export default class Bullet extends Phaser.GameObjects.Image {
 
    
 
-        if (this.y < -1000 || this.x < -1000 || this.x > 1000 || this.y > 1000) 
+        if (this.y < -this.scene.scale.height || this.x < -this.scene.scale.width || this.x > this.scene.scale.width || this.y > this.scene.scale.height) 
         {
             this.setActive(false);
             this.setVisible(false);

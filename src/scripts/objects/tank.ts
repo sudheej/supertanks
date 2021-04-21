@@ -18,6 +18,7 @@ export default class Tank extends Phaser.GameObjects.Container {
         let lefttrack = scene.physics.add.sprite(-100, 0, 'effects')
         let righttrack = scene.physics.add.sprite(100, 0, 'effects')
         this.exhaust = scene.physics.add.sprite(0, 113, 'effects')
+        this.shotsFlame = scene.physics.add.sprite(0, -113, 'effects')
 
         this.firing = scene.sound.add('firing')
         this.driving = scene.sound.add('tankdriving', { volume: 0.2, loop: true })
@@ -28,6 +29,21 @@ export default class Tank extends Phaser.GameObjects.Container {
         lefttrack.setScale(0.90)
         righttrack.setScale(0.90)
         this.exhaust.setScale(0.7)
+        this.shotsFlame.setScale(0.5)
+
+       
+        this.shotsFlame.anims.create({
+            key: 'Sprite_Fire_Shots_Flame',
+            frames: this.shotsFlame.anims.generateFrameNames('effects', {
+                start: 1,
+                end: 3,
+                prefix: 'Sprite_Fire_Shots_Shot_B_00',
+                suffix: '.png'
+            }),
+            frameRate: 9,
+            repeat: -1
+        })
+
 
         this.exhaust.anims.create({
             key: 'Sprite_Effects_Exhaust',
@@ -102,7 +118,8 @@ export default class Tank extends Phaser.GameObjects.Container {
         righttrack.play('Track_idle')
         this.exhaust.play('Sprite_Effects_Exhaust')
         this.exhaust.visible = false
-        this.add([hull, weapon, lefttrack, righttrack, this.exhaust])
+        this.shotsFlame.visible = false
+        this.add([hull, weapon, lefttrack, righttrack, this.exhaust,this.shotsFlame])
 
         scene.physics.world.enableBody(this)
         this.setScale(0.3)
@@ -150,6 +167,11 @@ export default class Tank extends Phaser.GameObjects.Container {
             let bullet = this.TankBullet.get();
             if (bullet) {
                 bullet.fire(this.x, this.y, this.angle)
+                this.shotsFlame.visible = true
+                this.scene.anims.play('Sprite_Fire_Shots_Flame', this.getAt(5))
+            }
+            else{
+                this.shotsFlame.visible = false
             }
             this.resetTween(this.getAt(1))
             this.weaponsTween = this.scene.tweens.add({

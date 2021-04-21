@@ -1,6 +1,6 @@
 export default class FpsText extends Phaser.GameObjects.Text {
   constructor(scene) {
-    super(scene, 10, 10, '', { color: 'black', fontSize: '28px' })
+    super(scene, 10, 10, '', { color: 'white', fontSize: '28px' })
     scene.add.existing(this)
     this.setOrigin(0)
   }
