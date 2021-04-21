@@ -39,10 +39,10 @@
   <h3 align="center">Super Tanks</h3>
 
   <p align="center">
-    A battle tank game that exposes API's to control interaction thus enabling a AI bots to train, learn and conqure the supertanks battle champion award.
+    A battle tank game that exposes API's to control interaction thus enabling a AI bots to train, learn and conquer the supertanks battle champion award.
     <br />
     <a href="https://github.com/sudheej/supertanks"><strong>Explore the docs »</strong></a>
-conquer    <br />
+   <br />
     <br />
     <a href="https://github.com/sudheej/supertanks">View Demo</a>
     ·
