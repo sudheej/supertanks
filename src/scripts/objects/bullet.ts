@@ -21,6 +21,8 @@ export default class Bullet extends Phaser.GameObjects.Image {
     
         this.speed = Phaser.Math.GetSpeed(600, 0.2);
         this.setScale(0.5)
+        
+        
 
     }
 

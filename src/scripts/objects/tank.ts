@@ -1,4 +1,5 @@
 import Bullet from './bullet'
+import TankHitBox from './tankHitBox'
 export default class Tank extends Phaser.GameObjects.Container {
 
     TrackAnimationisPlaying: Boolean
@@ -8,6 +9,7 @@ export default class Tank extends Phaser.GameObjects.Container {
     firing
     driving
     TankBullet
+    tankhitbox
     _TANKSPEED = 2
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
@@ -20,10 +22,12 @@ export default class Tank extends Phaser.GameObjects.Container {
         this.exhaust = scene.physics.add.sprite(0, 113, 'effects')
         this.shotsFlame = scene.physics.add.sprite(0, -113, 'effects')
 
+        this.tankhitbox = new TankHitBox(scene,400,300,100,100)
+
         this.firing = scene.sound.add('firing')
         this.driving = scene.sound.add('tankdriving', { volume: 0.2, loop: true })
         this.TankBullet = scene.physics.add.group({ classType: Bullet, maxSize: 3, runChildUpdate: true })
-
+    
 
 
         lefttrack.setScale(0.90)
@@ -122,9 +126,17 @@ export default class Tank extends Phaser.GameObjects.Container {
         this.add([hull, weapon, lefttrack, righttrack, this.exhaust,this.shotsFlame])
 
         scene.physics.world.enable(this)
-      
-        
+     
+
         this.setScale(0.3)
+        this.height = 500
+        this.width = 500
+        console.log("height" + this.height)
+        console.log("width" + this.width)
+     
+        //this.setSize(-2000,-400)
+       // this.setInteractive(new Phaser.Geom.Circle(0, 0, 50), Phaser.Geom.Circle.Contains);
+        // container.setInteractive(false); // disable
 
     }
     track_animation_state(isActive: Boolean) {
@@ -159,6 +171,61 @@ export default class Tank extends Phaser.GameObjects.Container {
         if (this.weaponsTween) { this.weaponsTween.pause() }
         weapon.y = 15
 
+    }
+
+
+    getSize(con) {
+        //set the top position to the bottom of the game
+        var top:any = this.scene.game.config.height;
+        var bottom:any = 0;
+        //set the left to the right of the game
+        var left:any = this.scene.game.config.width;
+        var right:any = 0;
+        //
+        //
+        //loop through the children
+        //
+        con.iterate(function(child) {
+            //get the positions of the child
+            var childX = child.x;
+            var childY = child.y;
+            //
+            //
+            //
+            var childW = child.displayWidth;
+            var childH = child.displayHeight;
+            //
+            //
+            //calcuate the child position
+            //based on the origin
+            //
+            //
+            var childTop = childY - (childH * child.originY);
+            var childBottom = childY + (childH * (1 - child.originY));
+            var childLeft = childX - (childW * child.originX);
+            var childRight = childX + (childW * (1 - child.originY));
+            //test the positions against
+            //top, bottom, left and right
+            //
+            if (childBottom > bottom) {
+                bottom = childBottom;
+            }
+            if (childTop < top) {
+                top = childTop;
+            }
+            if (childLeft < left) {
+                left = childLeft;
+            }
+            if (childRight > right) {
+                right = childRight;
+            }
+        }.bind(this));
+        //
+        //calculate the square
+        var h = Math.abs(top - bottom);
+        var w = Math.abs(right - left);        
+        //set the container size
+        con.setSize(w, h);
     }
 
 
@@ -203,23 +270,25 @@ export default class Tank extends Phaser.GameObjects.Container {
 
         switch (true) {
             case cursors.left.isDown:
-
+      
                 this.track_animation_state(true)
                 this.x -= this._TANKSPEED
-
                 this.angle = -90
                 break;
             case cursors.right.isDown:
+             
                 this.track_animation_state(true)
                 this.x += this._TANKSPEED
                 this.angle = +90
                 break;
             case cursors.up.isDown:
+          
                 this.track_animation_state(true)
                 this.y -= this._TANKSPEED
                 this.angle = 360
                 break;
             case cursors.down.isDown:
+        
                 this.track_animation_state(true)
                 this.y += this._TANKSPEED
                 this.angle = 180
