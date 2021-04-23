@@ -1,5 +1,5 @@
 import Bullet from './bullet'
-import TankHitBox from './tankHitBox'
+
 export default class Tank extends Phaser.GameObjects.Container {
 
     TrackAnimationisPlaying: Boolean
@@ -15,6 +15,8 @@ export default class Tank extends Phaser.GameObjects.Container {
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y);
 
+        this.setSize(246,246)
+
         let hull = scene.add.sprite(0, 0, 'hull')
         let weapon = scene.add.sprite(0, 0, 'weapon')
         let lefttrack = scene.physics.add.sprite(-100, 0, 'effects')
@@ -22,7 +24,7 @@ export default class Tank extends Phaser.GameObjects.Container {
         this.exhaust = scene.physics.add.sprite(0, 113, 'effects')
         this.shotsFlame = scene.physics.add.sprite(0, -113, 'effects')
 
-        this.tankhitbox = new TankHitBox(scene,400,300,100,100)
+     
 
         this.firing = scene.sound.add('firing')
         this.driving = scene.sound.add('tankdriving', { volume: 0.2, loop: true })
@@ -123,22 +125,16 @@ export default class Tank extends Phaser.GameObjects.Container {
         this.exhaust.play('Sprite_Effects_Exhaust')
         this.exhaust.visible = false
         this.shotsFlame.visible = false
+
+        
+
         this.add([hull, weapon, lefttrack, righttrack, this.exhaust,this.shotsFlame])
-
-        scene.physics.world.enable(this)
-     
-
         this.setScale(0.3)
-        this.height = 500
-        this.width = 500
-        console.log("height" + this.height)
-        console.log("width" + this.width)
-     
-        //this.setSize(-2000,-400)
-       // this.setInteractive(new Phaser.Geom.Circle(0, 0, 50), Phaser.Geom.Circle.Contains);
-        // container.setInteractive(false); // disable
+        scene.physics.world.enable(this)
+
 
     }
+
     track_animation_state(isActive: Boolean) {
         switch (true) {
             case isActive:
