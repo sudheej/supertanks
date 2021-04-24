@@ -3,6 +3,7 @@ import Bullet from './bullet'
 export default class Tank extends Phaser.GameObjects.Container {
 
     TrackAnimationisPlaying: Boolean
+    hasCollided: Boolean
     weaponsTween
     exhaust
     shotsFlame
@@ -28,8 +29,8 @@ export default class Tank extends Phaser.GameObjects.Container {
 
         this.firing = scene.sound.add('firing')
         this.driving = scene.sound.add('tankdriving', { volume: 0.2, loop: true })
-        this.TankBullet = scene.physics.add.group({ classType: Bullet, maxSize: 3, runChildUpdate: true })
-
+        this.TankBullet = scene.physics.add.group({ classType: Bullet, maxSize: 3, runChildUpdate: true})
+  
 
 
         lefttrack.setScale(0.90)
@@ -125,6 +126,7 @@ export default class Tank extends Phaser.GameObjects.Container {
         this.exhaust.play('Sprite_Effects_Exhaust')
         this.exhaust.visible = false
         this.shotsFlame.visible = false
+        this.hasCollided = false
 
 
 
@@ -170,9 +172,18 @@ export default class Tank extends Phaser.GameObjects.Container {
 
     }
 
+    setCollision() {
+        this.hasCollided = true
+    }
+
+    setDestroyBullets() {
+        this.TankBullet.setActive(false)
+        this.TankBullet.setVisible(false)
+    }
 
 
     keyboard_actions(cursors: Phaser.Types.Input.Keyboard.CursorKeys) {
+        
         this.body.gameObject.body.setVelocity(0);
         if (cursors.space.isDown) {
             this.firing.play()

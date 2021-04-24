@@ -15,13 +15,14 @@ export default class Bullet extends Phaser.GameObjects.Image {
     
     constructor(scene: any, x: number, y: number) {
         super(scene, x, y, 'bullet');
+      
 
         Phaser.GameObjects.Image.call(this, scene, 0, 0, 'bullet');
-
+     
     
-        this.speed = Phaser.Math.GetSpeed(600, 0.2);
-        this.setScale(0.5)
-        
+        this.speed = Phaser.Math.GetSpeed(600,0.5);
+      
+        this.scale = 0.2
         
 
     }
@@ -30,6 +31,7 @@ export default class Bullet extends Phaser.GameObjects.Image {
         this.direction = angle
         this.angle = angle
     }
+
 
     fire(x,y,tank_angle) {
 
@@ -66,6 +68,7 @@ export default class Bullet extends Phaser.GameObjects.Image {
         if ( this.direction === orientation.Up) {
 
             this.y -= this.speed * delta;
+
         }
         else if(this.direction === orientation.Down) {
   
@@ -74,10 +77,12 @@ export default class Bullet extends Phaser.GameObjects.Image {
         else if(this.direction === orientation.Left) {
 
             this.x -= this.speed * delta;
+           // this.body.gameObject.body.setVelocityX(this.speed  * delta)
         }
         else if(this.direction === orientation.Right) {
 
             this.x += this.speed * delta;
+            //this.body.gameObject.body.setVelocityX(this.speed  * delta)
         }
 
 

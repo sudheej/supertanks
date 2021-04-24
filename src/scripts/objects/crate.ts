@@ -9,4 +9,11 @@ export default class Crate extends Phaser.Physics.Arcade.Sprite {
       this.setCollideWorldBounds(true)
   
     }
+
+ onImpact(bullet,me) {
+
+    console.log("iam hit !!")
+
+ }
+
   }
