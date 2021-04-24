@@ -10,12 +10,12 @@ export default class Tank extends Phaser.GameObjects.Container {
     driving
     TankBullet
     tankhitbox
-    _TANKSPEED = 2
+    _TANKSPEED = 150
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y);
 
-        this.setSize(246,246)
+        this.setSize(245, 245)
 
         let hull = scene.add.sprite(0, 0, 'hull')
         let weapon = scene.add.sprite(0, 0, 'weapon')
@@ -24,12 +24,12 @@ export default class Tank extends Phaser.GameObjects.Container {
         this.exhaust = scene.physics.add.sprite(0, 113, 'effects')
         this.shotsFlame = scene.physics.add.sprite(0, -113, 'effects')
 
-     
+
 
         this.firing = scene.sound.add('firing')
         this.driving = scene.sound.add('tankdriving', { volume: 0.2, loop: true })
         this.TankBullet = scene.physics.add.group({ classType: Bullet, maxSize: 3, runChildUpdate: true })
-    
+
 
 
         lefttrack.setScale(0.90)
@@ -37,7 +37,7 @@ export default class Tank extends Phaser.GameObjects.Container {
         this.exhaust.setScale(0.7)
         this.shotsFlame.setScale(0.5)
 
-       
+
         this.shotsFlame.anims.create({
             key: 'Sprite_Fire_Shots_Flame',
             frames: this.shotsFlame.anims.generateFrameNames('effects', {
@@ -126,11 +126,12 @@ export default class Tank extends Phaser.GameObjects.Container {
         this.exhaust.visible = false
         this.shotsFlame.visible = false
 
-        
 
-        this.add([hull, weapon, lefttrack, righttrack, this.exhaust,this.shotsFlame])
+
+        this.add([hull, weapon, lefttrack, righttrack, this.exhaust, this.shotsFlame])
         this.setScale(0.3)
         scene.physics.world.enable(this)
+        this.body.gameObject.body.setBounce(1, 1).setCollideWorldBounds(true)
 
 
     }
@@ -170,63 +171,9 @@ export default class Tank extends Phaser.GameObjects.Container {
     }
 
 
-    getSize(con) {
-        //set the top position to the bottom of the game
-        var top:any = this.scene.game.config.height;
-        var bottom:any = 0;
-        //set the left to the right of the game
-        var left:any = this.scene.game.config.width;
-        var right:any = 0;
-        //
-        //
-        //loop through the children
-        //
-        con.iterate(function(child) {
-            //get the positions of the child
-            var childX = child.x;
-            var childY = child.y;
-            //
-            //
-            //
-            var childW = child.displayWidth;
-            var childH = child.displayHeight;
-            //
-            //
-            //calcuate the child position
-            //based on the origin
-            //
-            //
-            var childTop = childY - (childH * child.originY);
-            var childBottom = childY + (childH * (1 - child.originY));
-            var childLeft = childX - (childW * child.originX);
-            var childRight = childX + (childW * (1 - child.originY));
-            //test the positions against
-            //top, bottom, left and right
-            //
-            if (childBottom > bottom) {
-                bottom = childBottom;
-            }
-            if (childTop < top) {
-                top = childTop;
-            }
-            if (childLeft < left) {
-                left = childLeft;
-            }
-            if (childRight > right) {
-                right = childRight;
-            }
-        }.bind(this));
-        //
-        //calculate the square
-        var h = Math.abs(top - bottom);
-        var w = Math.abs(right - left);        
-        //set the container size
-        con.setSize(w, h);
-    }
-
 
     keyboard_actions(cursors: Phaser.Types.Input.Keyboard.CursorKeys) {
-
+        this.body.gameObject.body.setVelocity(0);
         if (cursors.space.isDown) {
             this.firing.play()
             let bullet = this.TankBullet.get();
@@ -234,21 +181,21 @@ export default class Tank extends Phaser.GameObjects.Container {
                 this.shotsFlame.visible = true
                 this.scene.anims.play('Sprite_Fire_Shots_Flame', this.getAt(5))
                 bullet.fire(this.x, this.y, this.angle)
-              
-                
+
+
             }
             else {
-                
+
             }
 
-           
-         
-               
 
-           
-      
-             
-        
+
+
+
+
+
+
+
             this.resetTween(this.getAt(1))
             this.weaponsTween = this.scene.tweens.add({
                 targets: this.getAt(1),
@@ -266,27 +213,32 @@ export default class Tank extends Phaser.GameObjects.Container {
 
         switch (true) {
             case cursors.left.isDown:
-      
+
+
                 this.track_animation_state(true)
-                this.x -= this._TANKSPEED
+                this.body.gameObject.body.setVelocityX(-this._TANKSPEED);
+
                 this.angle = -90
                 break;
             case cursors.right.isDown:
-             
+
                 this.track_animation_state(true)
-                this.x += this._TANKSPEED
+                this.body.gameObject.body.setVelocityX(this._TANKSPEED);
+
                 this.angle = +90
                 break;
             case cursors.up.isDown:
-          
+
                 this.track_animation_state(true)
-                this.y -= this._TANKSPEED
+                this.body.gameObject.body.setVelocityY(-this._TANKSPEED);
+
                 this.angle = 360
                 break;
             case cursors.down.isDown:
-        
+
                 this.track_animation_state(true)
-                this.y += this._TANKSPEED
+                this.body.gameObject.body.setVelocityY(this._TANKSPEED);
+
                 this.angle = 180
                 break;
             default:

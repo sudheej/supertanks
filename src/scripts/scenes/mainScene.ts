@@ -19,7 +19,7 @@ export default class MainScene extends Phaser.Scene {
   create() {
     this.tank = new Tank(this,400,300)
     this.crate= new Crate(this,900,400)
-
+    
     
 
     this.bgm = this.sound.add('bgm',{ loop: true,volume: 0.1 })
@@ -27,8 +27,10 @@ export default class MainScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys()
     this.tankdriving = this.sound.add('tankdriving')
     this.physics.world.setBoundsCollision();
-  
-    this.crate.setBounce(2)
+    this.physics.world.enableBody(this.tank)
+
+
+
     this.physics.add.existing(this.tank)
     this.add.existing(this.tank)
     this.add.existing(this.crate)
