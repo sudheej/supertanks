@@ -1,4 +1,5 @@
 import Bullet from './bullet'
+import HealthBar from './healthbar'
 
 export default class Tank extends Phaser.GameObjects.Container {
 
@@ -11,6 +12,7 @@ export default class Tank extends Phaser.GameObjects.Container {
     driving
     TankBullet
     tankhitbox
+
     _TANKSPEED = 150
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
