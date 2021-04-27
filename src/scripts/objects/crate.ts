@@ -1,4 +1,6 @@
 export default class Crate extends Phaser.Physics.Arcade.Sprite {
+
+    crateTween
     constructor(scene, x, y) {
       super(scene, x, y, 'woodencrate')
       scene.add.existing(this)
@@ -10,9 +12,21 @@ export default class Crate extends Phaser.Physics.Arcade.Sprite {
   
     }
 
- onImpact(bullet,me) {
+ onImpact() {
 
     console.log("iam hit !!")
+
+    
+    this.crateTween=  this.scene.tweens.add({
+        targets: this,
+        alpha: 0,
+        ease: 'Linear',  
+        duration: 100,
+        repeat: 2,
+        yoyo: true
+      })
+
+
 
  }
 

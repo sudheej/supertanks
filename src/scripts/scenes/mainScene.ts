@@ -36,20 +36,28 @@ export default class MainScene extends Phaser.Scene {
     this.add.existing(this.crate)
 
 
+
     this.physics.add.collider(this.tank, this.crate)
-    this.physics.add.collider(this.tank.TankBullet, this.crate, function (Crate, TankBullet) {
+    this.physics.add.collider(this.tank.TankBullet, this.crate,  (Cratex, TankBullet) => {
       // TankBullet.destroy()
       TankBullet.active = false
       TankBullet.destroy()
+      this.crate.onImpact()
+   
     })
 
 
-    this.physics.add.overlap(this.tank.TankBullet,this.crate,this.crate.onImpact);
+    this.physics.add.overlap(this.tank.TankBullet,this.crate,this.hitEnemy);
 
     this.fpsText = new FpsText(this)
     this.bgm.play()
 
 
+  }
+
+   // 4.3 reset ship position when hit
+   hitEnemy(projectile, enemy) {
+    console.log("holly shit i am hit")
   }
 
 
