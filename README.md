@@ -54,6 +54,7 @@
 
 
 [![Build][build-shield]][build-url]
+[![DeepSource](https://deepsource.io/gh/sudheej/supertanks.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/sudheej/supertanks/?ref=repository-badge)
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
