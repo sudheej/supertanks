@@ -1,5 +1,11 @@
 export default class HealthBar {
 
+    bar:Phaser.GameObjects.Graphics
+    value:number
+    p:number
+    x:number
+    y:number
+
     constructor (scene, x, y,player_name)
     {
         this.bar = new Phaser.GameObjects.Graphics(scene);

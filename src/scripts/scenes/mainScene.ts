@@ -1,5 +1,6 @@
 import Tank from '../objects/tank'
-
+import Player from '../gameplay/player'
+import PlayerGroup from '../gameplay/PlayerGroup'
 import Crate from '../objects/crate'
 import FpsText from '../objects/fpsText'
 import HealthBar from '../objects/healthbar'
@@ -19,6 +20,13 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
+    this.cursors = this.input.keyboard.createCursorKeys()
+    let player1Config = new Player(1,"Goku",Phaser.Input.Keyboard.KeyCodes.W,Phaser.Input.Keyboard.KeyCodes.S,Phaser.Input.Keyboard.KeyCodes.A,Phaser.Input.Keyboard.KeyCodes.D,Phaser.Input.Keyboard.KeyCodes.F)
+    let player2Config = new Player(1,"Vegeta",Phaser.Input.Keyboard.KeyCodes.UP,Phaser.Input.Keyboard.KeyCodes.DOWN,Phaser.Input.Keyboard.KeyCodes.LEFT,Phaser.Input.Keyboard.KeyCodes.RIGHT,Phaser.Input.Keyboard.KeyCodes.SPACE)
+    let playergroup = new PlayerGroup()
+    playergroup.add_player(player1Config)
+    playergroup.add_player(player2Config)
+    playergroup.debug_players()
     this.tank = new Tank(this, 400, 300)
     this.tank2 = new Tank(this, -100, 300)
     this.crate = new Crate(this, 900, 400)
@@ -27,7 +35,7 @@ export default class MainScene extends Phaser.Scene {
 
     this.bgm = this.sound.add('bgm', { loop: true, volume: 0.1 })
     this.add.text(500, 0, 'Press Arrow Keys to Navigate, Space to Fire !', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
-    this.cursors = this.input.keyboard.createCursorKeys()
+  
     this.tankdriving = this.sound.add('tankdriving')
     this.physics.world.setBoundsCollision();
     this.physics.world.enableBody(this.tank)
