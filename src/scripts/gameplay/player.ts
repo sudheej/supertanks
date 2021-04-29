@@ -6,8 +6,10 @@ export default class Player {
     left: number
     right: number
     fire: number
+    _startX: number
+    _startY: number
 
-    constructor(id:number,name:string,up:number,down:number,left:number,right:number,fire:number) {
+    constructor(id:number,name:string,up:number,down:number,left:number,right:number,fire:number,_startX:number,_startY:number) {
         this.id = id
         this.name = name
         this.up = up
@@ -15,6 +17,8 @@ export default class Player {
         this.left = left
         this.right = right
         this.fire = fire
+        this._startX = _startX
+        this._startY = _startY
 
     }
 
