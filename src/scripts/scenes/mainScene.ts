@@ -90,6 +90,13 @@ export default class MainScene extends Phaser.Scene {
 
   update() {
     this.fpsText.update()
+
+    this._tanks.map((t) => {
+      t.keyboard_actions()
+     
+  
+    })
+    
    // this.tank.keyboard_actions(this.cursors)
 
   }

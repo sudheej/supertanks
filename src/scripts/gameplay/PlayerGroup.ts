@@ -21,7 +21,7 @@ export default class PlayerGroup {
 
     instantiate_players(game) {
         this.player_entities.map(x => {
-           this.tank.push(new Tank(game, x._startX, x._startY))
+           this.tank.push(new Tank(game, x._startX, x._startY,x))
         })
 
         return this.tank

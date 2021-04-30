@@ -1,5 +1,6 @@
 import Bullet from './bullet'
 import HealthBar from './healthbar'
+import Player from '../gameplay/player'
 
 export default class Tank extends Phaser.GameObjects.Container {
 
@@ -12,14 +13,16 @@ export default class Tank extends Phaser.GameObjects.Container {
     driving
     TankBullet
     tankhitbox
-
+    controlKeys:Phaser.Types.Input.Keyboard.CursorKeys
+    keys
     _TANKSPEED = 150
 
-    constructor(scene: Phaser.Scene, x: number, y: number) {
+    constructor(scene: Phaser.Scene, x: number, y: number,player_entity:Player) {
         super(scene, x, y);
 
         this.setSize(245, 245)
 
+        
         let hull = scene.add.sprite(0, 0, 'hull')
         let weapon = scene.add.sprite(0, 0, 'weapon')
         let lefttrack = scene.physics.add.sprite(-100, 0, 'effects')
@@ -28,12 +31,17 @@ export default class Tank extends Phaser.GameObjects.Container {
         this.shotsFlame = scene.physics.add.sprite(0, -113, 'effects')
 
 
-
         this.firing = scene.sound.add('firing')
         this.driving = scene.sound.add('tankdriving', { volume: 0.2, loop: true })
         this.TankBullet = scene.physics.add.group({ classType: Bullet, maxSize: 3, runChildUpdate: true})
   
-
+        this.keys = scene.input.keyboard.addKeys({
+            up:  player_entity.up,
+            down:  player_entity.down,
+            left:  player_entity.left,
+            right:  player_entity.right,
+            fire: player_entity.fire
+        });
 
         lefttrack.setScale(0.90)
         righttrack.setScale(0.90)
@@ -184,10 +192,12 @@ export default class Tank extends Phaser.GameObjects.Container {
     }
 
 
-    keyboard_actions(cursors: Phaser.Types.Input.Keyboard.CursorKeys) {
+    keyboard_actions() {
+
+
         
         this.body.gameObject.body.setVelocity(0);
-        if (cursors.space.isDown) {
+        if (this.keys.fire.isDown) {
             this.firing.play()
             let bullet = this.TankBullet.get();
             if (bullet) {
@@ -225,7 +235,7 @@ export default class Tank extends Phaser.GameObjects.Container {
         }
 
         switch (true) {
-            case cursors.left.isDown:
+            case this.keys.left.isDown:
 
 
                 this.track_animation_state(true)
@@ -233,21 +243,21 @@ export default class Tank extends Phaser.GameObjects.Container {
 
                 this.angle = -90
                 break;
-            case cursors.right.isDown:
+            case this.keys.right.isDown:
 
                 this.track_animation_state(true)
                 this.body.gameObject.body.setVelocityX(this._TANKSPEED);
 
                 this.angle = +90
                 break;
-            case cursors.up.isDown:
+            case this.keys.up.isDown:
 
                 this.track_animation_state(true)
                 this.body.gameObject.body.setVelocityY(-this._TANKSPEED);
 
                 this.angle = 360
                 break;
-            case cursors.down.isDown:
+            case this.keys.down.isDown:
 
                 this.track_animation_state(true)
                 this.body.gameObject.body.setVelocityY(this._TANKSPEED);
