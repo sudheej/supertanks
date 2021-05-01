@@ -46,10 +46,17 @@ export default class MainScene extends Phaser.Scene {
     this.tankdriving = this.sound.add('tankdriving')
     this.physics.world.setBoundsCollision();
     
-  this._tanks.map((t) => {
+  this._tanks.map((t,i) => {
     this.physics.world.enableBody(t)
     this.physics.add.existing(t)
     this.add.existing(t)
+    this.physics.add.collider(this._tanks,this._tanks)
+    this.physics.add.collider(t.TankBullet,this._tanks,(tankx,bullet) => {
+      bullet.active = false
+      bullet.destroy()
+      tankx.body.gameObject.body.gameObject.onHit()
+  
+    })
    
 
   })

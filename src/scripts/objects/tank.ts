@@ -15,6 +15,7 @@ export default class Tank extends Phaser.GameObjects.Container {
     tankhitbox
     controlKeys:Phaser.Types.Input.Keyboard.CursorKeys
     keys
+    hitTween
     _TANKSPEED = 150
 
     constructor(scene: Phaser.Scene, x: number, y: number,player_entity:Player) {
@@ -189,6 +190,19 @@ export default class Tank extends Phaser.GameObjects.Container {
     setDestroyBullets() {
         this.TankBullet.setActive(false)
         this.TankBullet.setVisible(false)
+    }
+
+    onHit() {
+        this.hitTween=  this.scene.tweens.add({
+            targets: this,
+            alpha: 0,
+            ease: 'Linear',  
+            duration: 100,
+            repeat: 2,
+            yoyo: true
+          })
+
+          this.alpha = 1
     }
 
 
