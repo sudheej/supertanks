@@ -35,6 +35,10 @@ export default class HealthBar {
         return (this.value === 0);
     }
 
+    getHealthState() {
+        return this.value
+    }
+
     draw ()
     {
         this.bar.clear();

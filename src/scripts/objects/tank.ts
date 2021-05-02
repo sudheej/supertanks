@@ -13,6 +13,7 @@ export default class Tank extends Phaser.GameObjects.Container {
     driving
     TankBullet
     tankhitbox
+    healthbar
     controlKeys:Phaser.Types.Input.Keyboard.CursorKeys
     keys
     hitTween
@@ -30,7 +31,8 @@ export default class Tank extends Phaser.GameObjects.Container {
         let righttrack = scene.physics.add.sprite(100, 0, 'effects')
         this.exhaust = scene.physics.add.sprite(0, 113, 'effects')
         this.shotsFlame = scene.physics.add.sprite(0, -113, 'effects')
-
+        this.healthbar = new HealthBar(scene,player_entity._healthBarX,player_entity._healthBarY,player_entity.name)
+        
 
         this.firing = scene.sound.add('firing')
         this.driving = scene.sound.add('tankdriving', { volume: 0.2, loop: true })
@@ -201,11 +203,24 @@ export default class Tank extends Phaser.GameObjects.Container {
             repeat: 1,
             yoyo: true
           })
+          if(this.healthbar.getHealthState() > 0) {
+            this.healthbar.decrease(3)
+          }
+          else {
+              this.active = false
+              this.visible = false
+              this.body.gameObject.body.visible = false
+              this.body.gameObject.body.active = false
 
+              //this.body.gameObject.body?this.body.gameObject.body.destroy():""
+          }
+          
           this.alpha = 1
         
           
     }
+
+
 
 
     keyboard_actions() {

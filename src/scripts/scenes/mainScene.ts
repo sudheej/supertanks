@@ -22,8 +22,8 @@ export default class MainScene extends Phaser.Scene {
 
   create() {
     this.cursors = this.input.keyboard.createCursorKeys()
-    let player1Config = new Player(1,"Goku",Phaser.Input.Keyboard.KeyCodes.W,Phaser.Input.Keyboard.KeyCodes.S,Phaser.Input.Keyboard.KeyCodes.A,Phaser.Input.Keyboard.KeyCodes.D,Phaser.Input.Keyboard.KeyCodes.F,400,300)
-    let player2Config = new Player(1,"Vegeta",Phaser.Input.Keyboard.KeyCodes.UP,Phaser.Input.Keyboard.KeyCodes.DOWN,Phaser.Input.Keyboard.KeyCodes.LEFT,Phaser.Input.Keyboard.KeyCodes.RIGHT,Phaser.Input.Keyboard.KeyCodes.SPACE,-100,300)
+    let player1Config = new Player(1,"Goku",Phaser.Input.Keyboard.KeyCodes.W,Phaser.Input.Keyboard.KeyCodes.S,Phaser.Input.Keyboard.KeyCodes.A,Phaser.Input.Keyboard.KeyCodes.D,Phaser.Input.Keyboard.KeyCodes.F,400,300,200,10)
+    let player2Config = new Player(1,"Vegeta",Phaser.Input.Keyboard.KeyCodes.UP,Phaser.Input.Keyboard.KeyCodes.DOWN,Phaser.Input.Keyboard.KeyCodes.LEFT,Phaser.Input.Keyboard.KeyCodes.RIGHT,Phaser.Input.Keyboard.KeyCodes.SPACE,-100,300,900,10)
     let playergroup = new PlayerGroup()
     playergroup.add_player(player1Config)
     playergroup.add_player(player2Config)
@@ -35,7 +35,6 @@ export default class MainScene extends Phaser.Scene {
     //this.tank = new Tank(this, 400, 300)
     //this.tank2 = new Tank(this, -100, 300)
     this.crate = new Crate(this, 900, 400)
-    this.healthbar = new HealthBar(this,200,20,"Tank1")
 
 
 
@@ -63,29 +62,6 @@ export default class MainScene extends Phaser.Scene {
 
   this.physics.add.collider(this._tanks,this.crate)
 
-    /*
-
-     this.physics.world.enableBody(this.tank)
-
-    this.physics.add.existing(this.tank)
-    this.add.existing(this.tank2)
-    this.add.existing(this.tank)
-    this.add.existing(this.crate)
-
-    this.physics.add.collider(this.tank, this.tank2)
-
-    this.physics.add.collider(this.tank, this.crate)
-    this.physics.add.collider(this.tank.TankBullet, this.crate,  (Cratex, TankBullet) => {
-      // TankBullet.destroy()
-      TankBullet.active = false
-      TankBullet.destroy()
-      this.crate.onImpact()
-   
-    })
-
-   
-
-  */
     this.fpsText = new FpsText(this)
     this.bgm.play()
 
@@ -99,7 +75,11 @@ export default class MainScene extends Phaser.Scene {
     this.fpsText.update()
 
     this._tanks.map((t) => {
-      t.keyboard_actions()
+      if(t.body.gameObject.body != undefined) {
+        console.log(t)
+        t.keyboard_actions()
+      }
+   
   
     })
     
