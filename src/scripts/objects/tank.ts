@@ -146,7 +146,7 @@ export default class Tank extends Phaser.GameObjects.Container {
         scene.physics.world.enable(this)
         this.body.gameObject.body.setBounce(1, 1).setCollideWorldBounds(true)
 
-
+        console.log(this.alpha)
     }
 
     track_animation_state(isActive: Boolean) {
@@ -195,14 +195,16 @@ export default class Tank extends Phaser.GameObjects.Container {
     onHit() {
         this.hitTween=  this.scene.tweens.add({
             targets: this,
-            alpha: 0,
+            alpha: 0.5,
             ease: 'Linear',  
-            duration: 100,
-            repeat: 2,
+            duration: 50,
+            repeat: 1,
             yoyo: true
           })
 
           this.alpha = 1
+        
+          
     }
 
 
@@ -213,6 +215,7 @@ export default class Tank extends Phaser.GameObjects.Container {
         this.body.gameObject.body.setVelocity(0);
         if (this.keys.fire.isDown) {
             this.firing.play()
+            
             let bullet = this.TankBullet.get();
             if (bullet) {
                 this.shotsFlame.visible = true
@@ -237,7 +240,7 @@ export default class Tank extends Phaser.GameObjects.Container {
             this.weaponsTween = this.scene.tweens.add({
                 targets: this.getAt(1),
                 y: 0,
-                duration: 50,
+                duration: 100,
                 ease: 'Easing.Elastic.In',
                 repeat: 1,
                 yoyo: true

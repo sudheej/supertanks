@@ -100,7 +100,6 @@ export default class MainScene extends Phaser.Scene {
 
     this._tanks.map((t) => {
       t.keyboard_actions()
-     
   
     })
     
