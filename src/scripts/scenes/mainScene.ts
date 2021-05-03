@@ -79,8 +79,8 @@ export default class MainScene extends Phaser.Scene {
       {
         t.keyboard_actions()
       }
-      else {
-
+      else if(t.active === false) {
+          t.destroy()
       }
 
     })

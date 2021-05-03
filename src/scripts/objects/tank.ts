@@ -10,6 +10,7 @@ export default class Tank extends Phaser.GameObjects.Container {
     exhaust
     shotsFlame
     firing
+    _AUDIO_DEAD_EXPLOSION
     driving
     dead
     TankBullet
@@ -37,6 +38,7 @@ export default class Tank extends Phaser.GameObjects.Container {
         
 
         this.firing = scene.sound.add('firing')
+        this._AUDIO_DEAD_EXPLOSION = scene.sound.add('deadexplosion')
         this.driving = scene.sound.add('tankdriving', { volume: 0.2, loop: true })
         this.TankBullet = scene.physics.add.group({ classType: Bullet, maxSize: 3, runChildUpdate: true})
   
@@ -227,13 +229,20 @@ export default class Tank extends Phaser.GameObjects.Container {
               })
             this.healthbar.decrease(3)
           }
-          else {
-              this.alpha = 1
+          else if(this.active === true) {
               //this.add([this.dead])
               this.dead.x = this.x
               this.dead.y = this.y 
               this.dead.visible = true
-              this.dead.play('Sprite_Effects_Explosion')
+              if (this.dead.active === false) {
+                   
+
+              }
+              else {
+                  this._AUDIO_DEAD_EXPLOSION.play()
+                this.dead.play('Sprite_Effects_Explosion')
+              }
+             
               
               this.active = false
               this.visible = false
@@ -243,6 +252,7 @@ export default class Tank extends Phaser.GameObjects.Container {
               this.dead.on('animationcomplete', (anim, frame) => {
                 this.dead.visible = false
                 this.dead.active = false
+                this.dead.destroy()
             
               }, this);
               //this.body.gameObject.body?this.body.gameObject.body.destroy():""
