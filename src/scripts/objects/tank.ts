@@ -11,6 +11,7 @@ export default class Tank extends Phaser.GameObjects.Container {
     shotsFlame
     firing
     driving
+    dead
     TankBullet
     tankhitbox
     healthbar
@@ -30,6 +31,7 @@ export default class Tank extends Phaser.GameObjects.Container {
         let lefttrack = scene.physics.add.sprite(-100, 0, 'effects')
         let righttrack = scene.physics.add.sprite(100, 0, 'effects')
         this.exhaust = scene.physics.add.sprite(0, 113, 'effects')
+        this.dead = scene.physics.add.sprite(0,113,'effects')
         this.shotsFlame = scene.physics.add.sprite(0, -113, 'effects')
         this.healthbar = new HealthBar(scene,player_entity._healthBarX,player_entity._healthBarY,player_entity.name)
         
@@ -49,6 +51,7 @@ export default class Tank extends Phaser.GameObjects.Container {
         lefttrack.setScale(0.90)
         righttrack.setScale(0.90)
         this.exhaust.setScale(0.7)
+        this.dead.setScale(1)
         this.shotsFlame.setScale(0.5)
 
 
@@ -62,6 +65,20 @@ export default class Tank extends Phaser.GameObjects.Container {
             }),
             frameRate: 9,
             repeat: -1
+        })
+
+        //Sprite_Effects_Explosion_001.png
+
+        this.dead.anims.create({
+            key: 'Sprite_Effects_Explosion',
+            frames: this.dead.anims.generateFrameNames('effects', {
+                start: 0,
+                end: 8,
+                prefix: 'Sprite_Effects_Explosion_00',
+                suffix: '.png'
+            }),
+            frameRate: 9,
+            repeat: 0
         })
 
 
@@ -137,6 +154,9 @@ export default class Tank extends Phaser.GameObjects.Container {
         lefttrack.play('Track_idle')
         righttrack.play('Track_idle')
         this.exhaust.play('Sprite_Effects_Exhaust')
+        
+
+        this.dead.visible = false
         this.exhaust.visible = false
         this.shotsFlame.visible = false
         this.hasCollided = false
@@ -195,23 +215,36 @@ export default class Tank extends Phaser.GameObjects.Container {
     }
 
     onHit() {
-        this.hitTween=  this.scene.tweens.add({
-            targets: this,
-            alpha: 0.5,
-            ease: 'Linear',  
-            duration: 50,
-            repeat: 1,
-            yoyo: true
-          })
+
           if(this.healthbar.getHealthState() > 0) {
+            this.hitTween=  this.scene.tweens.add({
+                targets: this,
+                alpha: 0.5,
+                ease: 'Linear',  
+                duration: 50,
+                repeat: 1,
+                yoyo: true
+              })
             this.healthbar.decrease(3)
           }
           else {
+              this.alpha = 1
+              //this.add([this.dead])
+              this.dead.x = this.x
+              this.dead.y = this.y 
+              this.dead.visible = true
+              this.dead.play('Sprite_Effects_Explosion')
+              
               this.active = false
               this.visible = false
               this.body.gameObject.body.visible = false
               this.body.gameObject.body.active = false
-
+             
+              this.dead.on('animationcomplete', (anim, frame) => {
+                this.dead.visible = false
+                this.dead.active = false
+            
+              }, this);
               //this.body.gameObject.body?this.body.gameObject.body.destroy():""
           }
           
