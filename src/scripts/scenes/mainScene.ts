@@ -75,12 +75,14 @@ export default class MainScene extends Phaser.Scene {
     this.fpsText.update()
 
     this._tanks.map((t) => {
-      if(t.body.gameObject.body != undefined) {
-        console.log(t)
+      if(t.healthbar.getHealthState() > 0 )
+      {
         t.keyboard_actions()
       }
-   
-  
+      else {
+
+      }
+
     })
     
    // this.tank.keyboard_actions(this.cursors)
