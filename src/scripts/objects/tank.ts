@@ -19,13 +19,14 @@ export default class Tank extends Phaser.GameObjects.Container {
     controlKeys:Phaser.Types.Input.Keyboard.CursorKeys
     keys
     hitTween
+    player_entity
     _TANKSPEED = 150
 
     constructor(scene: Phaser.Scene, x: number, y: number,player_entity:Player) {
         super(scene, x, y);
 
         this.setSize(245, 245)
-
+        this.player_entity = player_entity
         
         let hull = scene.add.sprite(0, 0, 'hull')
         let weapon = scene.add.sprite(0, 0, 'weapon')
@@ -209,6 +210,11 @@ export default class Tank extends Phaser.GameObjects.Container {
 
     setCollision() {
         this.hasCollided = true
+    }
+
+    getPlayerEntity() {
+        return this.player_entity.name
+
     }
 
     setDestroyBullets() {
