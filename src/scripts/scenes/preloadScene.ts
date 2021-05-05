@@ -13,6 +13,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.audio('firing','assets/sounds/fire.mp3')
     this.load.audio('deadexplosion','assets/sounds/deadexplosion.wav')
     this.load.audio('bgm','assets/sounds/bgm.wav')
+    this.load.audio('levelcomplete','assets/sounds/levelcomplete.wav')
   }
 
   create() {
