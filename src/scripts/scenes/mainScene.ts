@@ -42,6 +42,12 @@ export default class MainScene extends Phaser.Scene {
     const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
     this.dialog = new Dialog(this,screenCenterX,screenCenterY)
 
+
+    this.cameras.main.on('camerafadeoutcomplete', () => {
+
+         this.scene.restart()
+
+    }, this);
     
 
 
@@ -82,6 +88,7 @@ export default class MainScene extends Phaser.Scene {
 
   update() {
     this.fpsText.update()
+    
 
     this._tanks.map((t) => {
       if (t.healthbar.getHealthState() > 0) {

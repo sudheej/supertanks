@@ -10,10 +10,11 @@ export default class Dialog extends  Phaser.GameObjects.Container {
 
     constructor(scene, x, y) {
       super(scene, x, y)
-     
+      
       this.alpha = 0.8
       this.setScale(0.1)
       this.levelcomplete = this.scene.sound.add('levelcomplete')
+      
 
 
     }
@@ -22,15 +23,17 @@ export default class Dialog extends  Phaser.GameObjects.Container {
         this.message = new Phaser.GameObjects.Text(this.scene,0,0,dialog,{ color: 'white', fontSize: '28px' }).setOrigin(0.5)
         this.mainpanel = this.scene.add.sprite(0, 0, 'mainpanel')
 
+        this.mainpanel.setSize(50,100)
+
         let bg_red = this.scene.add.sprite(0, 0, 'redbutton')
         let text_red = new Phaser.GameObjects.Text(this.scene,0,0,"Quit",{ color: 'white', fontSize: '15px' }).setOrigin(0.5)
-        this.btn_quit = this.scene.add.container(150,150,[bg_red,text_red])
+        this.btn_quit = this.scene.add.container(100,100,[bg_red,text_red])
         this.btn_quit.setSize(bg_red.width,bg_red.height)
 
 
         let bg_green = this.scene.add.sprite(0, 0, 'greenbutton')
         let text_green = new Phaser.GameObjects.Text(this.scene,0,0,"Play Again",{ color: 'white', fontSize: '15px' }).setOrigin(0.5)
-        this.btn_playagain = this.scene.add.container(-50,150,[bg_green,text_green])
+        this.btn_playagain = this.scene.add.container(-100,100,[bg_green,text_green])
         this.btn_playagain.setSize(bg_green.width,bg_green.height)
 
 
@@ -38,7 +41,8 @@ export default class Dialog extends  Phaser.GameObjects.Container {
         this.btn_playagain.setInteractive({ cursor: 'pointer' })
 
 
-        
+     
+
         this.btn_quit.on('pointerover', function () {
 
             bg_red.setTint(0x44ff44);
@@ -68,6 +72,19 @@ export default class Dialog extends  Phaser.GameObjects.Container {
  
     
         });
+
+        this.btn_playagain.on('pointerdown', () => {
+
+            let red = Phaser.Math.Between(50, 255);
+            let green = Phaser.Math.Between(50, 255);
+            let blue = Phaser.Math.Between(50, 255);
+            this.scene.cameras.main.fade(2000, red, green, blue);
+           // this.s .cameras.main.fade(2000, red, green, blue);
+ 
+    
+        },this.scene);
+
+
 
     
         
